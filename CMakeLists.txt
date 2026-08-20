@@ -167,6 +167,22 @@ else()
 	endif()
 endif()
 
+if(USE_SANITIZERS)
+	if(MSVC)
+		add_compile_options(/fsanitize=address)
+		add_link_options(/fsanitize=address)
+	else()
+		add_compile_options(
+			-fsanitize=${USE_SANITIZERS}
+			-fno-omit-frame-pointer
+			-fno-sanitize-recover=all
+		)
+		add_link_options(
+			-fsanitize=${USE_SANITIZERS}
+		)
+	endif()
+endif()
+
 add_library(rapidyenc OBJECT ${RAPIDYENC_SOURCES})
 set_property(TARGET rapidyenc PROPERTY POSITION_INDEPENDENT_CODE 1)  # needed for shared build
 
