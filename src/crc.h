@@ -1,6 +1,6 @@
 #ifndef __YENC_CRC_H
 #define __YENC_CRC_H
-#include <stdlib.h> // for llabs
+#include <cstdlib>
 
 #if !defined(__GNUC__) && defined(_MSC_VER)
 # include <intrin.h>
@@ -77,7 +77,7 @@ static inline uint32_t crc32_unzero(uint32_t crc1, uint64_t len) {
 }
 static inline uint32_t crc32_2pow(int64_t n) {
 	uint32_t sign = (uint32_t)(n >> 63);
-	return crc32_shift(0x80000000, crc32_powmod(llabs(n)) ^ sign);
+	return crc32_shift(0x80000000, crc32_powmod(std::abs(n)) ^ sign);
 }
 static inline uint32_t crc32_256pow(uint64_t n) {
 	return crc32_shift(0x80000000, crc32_bytepow(n));
